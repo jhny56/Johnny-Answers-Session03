@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  api:
+    # Build the web service using the Dockerfile in the web directory
+    #
+    build: ./
+    ports:
+      - "5000:5000"
+    depends_on:
+      - minio
+  
+  minio:
+    image: bitnami/minio
+    ports:
+      - "9000:9000"
