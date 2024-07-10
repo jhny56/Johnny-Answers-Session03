@@ -4,13 +4,34 @@ services:
   api:
     # Build the web service using the Dockerfile in the web directory
     #
-    build: ./
+    build: .
     ports:
       - "5000:5000"
     depends_on:
       - minio
+    environment:
+      MINIO_ACCESS_KEY: adminadmin
+      MINIO_SECRET_KEY: adminadmin
+    networks:
+      - minio_network
   
   minio:
-    image: bitnami/minio
+    image: minio/minio
+    command: server /data
     ports:
       - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: adminadmin
+      MINIO_SECRET_KEY: adminadmin
+    volumes:
+      - minio-data:/data
+    networks:
+      - minio_network
+  
+volumes:
+  minio-data:
+    driver: local
+
+networks:
+  minio_network:
+    driver: bridge

@@ -17,8 +17,6 @@ EXPOSE 5000:5000
 # Define environment variable
 #
 ENV DEBIAN_FRONTEND=noninteractive
-ENV MINIO_ACCESS_KEY=${MINIO_ROOT_USER}
-ENV MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
 
 # Run app.py when the container launches
 #
